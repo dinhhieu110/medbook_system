@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { NavLink, useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
-
+  const [isScrolled, setIsScrolled] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [validToken, setValidToken] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const logout = () => {
     setValidToken(false);
   };
 
   return (
-    <div className="flex items-center justify-between text-sm py-6 border-b border-b-gray-400">
+    <div
+      className={`sticky top-0 flex p-2 items-center justify-between text-sm py-6 border-b border-b-gray-400 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-md shadow-md z-20"
+          : "bg-transparent"
+      }`}
+    >
       <img
         onClick={() => navigate("/")}
         className="w-44 cursor-pointer"
