@@ -7,7 +7,10 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 976px;
     --breakpoint-xl: 1025px;
-    --color-primary: #5F6FFF
+    --color-primary: #5F6FFF;
+
+    /* Layout */
+    --grid-cols-auto: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .active hr{
@@ -16,4 +19,8 @@
 
 ::-webkit-scrollbar{
     @apply hidden
+}
+
+.grid-cols-auto {
+    grid-template-columns: var(--grid-cols-auto);
 }

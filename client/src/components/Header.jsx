@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between text-sm py-4 border-b border-b-gray-400">
+    <div className="flex items-center justify-between text-sm py-6 border-b border-b-gray-400">
       <img
         onClick={() => navigate("/")}
         className="w-44 cursor-pointer"

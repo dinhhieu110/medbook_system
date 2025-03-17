@@ -6,7 +6,7 @@ const Specialty = () => {
   return (
     <div
       id="specialty"
-      className="flex flex-col items-center gap-4 py-16 text-gray-800"
+      className="flex flex-col items-center gap-4 my-16 text-gray-800"
     >
       <h1 className="text-4xl font-medium">Find by Specialty</h1>
       <p className="sm:w-1/3 text-center text-sm">
