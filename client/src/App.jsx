@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import {
   About,
   Appointment,
@@ -8,8 +8,8 @@ import {
   Login,
   MyAppointments,
   MyProfile,
-} from './pages';
-import { Footer, Header } from './components';
+} from "./pages";
+import { Footer, Header } from "./components";
 
 function App() {
   return (
