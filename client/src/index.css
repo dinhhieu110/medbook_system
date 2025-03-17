@@ -1,1 +1,14 @@
 @import 'tailwindcss';
+/* Custom themes */
+
+@theme{
+    --breakpoint-*: initial;
+    --breakpoint-sm: 480px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 976px;
+    --color-primary: #5F6FFF
+}
+
+.active hr{
+    @apply block
+}
