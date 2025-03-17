@@ -1,16 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import 'tailwindcss';
 /* Custom themes */
 
+*{
+    font-family: Outfit;
+}
+
 @theme{
     --breakpoint-*: initial;
-    --breakpoint-sm: 425px;
+    --breakpoint-sm: 475px;
     --breakpoint-md: 768px;
     --breakpoint-lg: 976px;
     --breakpoint-xl: 1025px;
     --color-primary: #5F6FFF;
 
     /* Layout */
-    --grid-cols-auto: repeat(auto-fit, minmax(250px, 1fr));
+    --grid-cols-auto: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .active hr{
