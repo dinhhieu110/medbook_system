@@ -19,7 +19,7 @@ const Header = () => {
         src={assets.logo}
         alt="logo_image"
       />
-      <ul className="hidden md:flex items-start gap-5 font-medium text-sm lg:text-xl">
+      <ul className="hidden md:flex items-start gap-5 font-medium text-sm xl:text-xl">
         <NavLink to="/">
           <li className="py-1">HOME</li>
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
@@ -75,7 +75,7 @@ const Header = () => {
         ) : (
           <button
             onClick={() => navigate("/login")}
-            className="bg-primary text-white px-8 py-4 rounded-full font-medium hidden md:block cursor-pointer"
+            className="bg-primary text-white px-2 lg:px-8 py-1 md:py-4 rounded-full font-medium hidden md:block cursor-pointer"
           >
             Create account
           </button>

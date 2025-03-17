@@ -27,7 +27,7 @@ const Banner = () => {
           href="#specialty"
         >
           Book appointment{" "}
-          <img className="w-3" src={assets.arrow_icon} alt="" />
+          <img className="w-3" src={assets.arrow_icon} alt="arrow_icon" />
         </a>
       </div>
       {/* Right Side */}
