@@ -3,10 +3,11 @@ import { Banner, Specialty, TopDoctors } from "../components";
 
 const Home = () => {
   return (
-    <div className="mt-6">
+    <div>
       <Banner />
       <Specialty />
       <TopDoctors />
+      <Banner />
     </div>
   );
 };
