@@ -9,7 +9,11 @@ const DoctorCard = ({ key, doctor }) => {
       className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
       onClick={() => navigate(`/appointment/${doctor._id}`)}
     >
-      <img className="bg-blue-50" src={doctor.image} alt="doctor_image" />
+      <img
+        className="bg-blue-50 w-full"
+        src={doctor.image}
+        alt="doctor_image"
+      />
       <div className="p-4">
         <div className="flex items-center gap-2 text-sm text-center text-green-500">
           <p className="flex items-center gap-2">

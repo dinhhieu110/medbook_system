@@ -15,7 +15,7 @@
     --color-primary: #5F6FFF;
 
     /* Layout */
-    --grid-cols-auto: repeat(auto-fit, minmax(200px, 1fr));
+    --grid-cols-auto: repeat(auto-fit, minmax(200px, 250px));
 }
 
 .active hr{
