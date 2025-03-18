@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <div
-      className={`sticky top-0 flex p-2 items-center justify-between text-sm py-6 border-b border-b-gray-400 ${
+      className={`sticky top-0 flex p-2 items-center justify-between text-sm py-6 mb-5 border-b border-b-gray-400 ${
         isScrolled
           ? "bg-white/80 backdrop-blur-md shadow-md z-20"
           : "bg-transparent"

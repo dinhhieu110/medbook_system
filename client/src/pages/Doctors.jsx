@@ -24,7 +24,7 @@ const Doctors = () => {
   }, [doctors, specialty]);
 
   return (
-    <div className="mt-6">
+    <div>
       <p className="text-gray-600">Browse through the doctors specialist.</p>
       <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
         {/* Categories */}

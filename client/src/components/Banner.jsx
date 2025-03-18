@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Banner = () => {
   return (
-    <div className="flex flex-col md:flex-row flex-wrap bg-primary rounded-lg px-6 md:px-10 lg:px-20 my-16">
+    <div className="flex flex-col md:flex-row flex-wrap bg-primary rounded-lg px-6 md:px-10 lg:px-20">
       {/* Left Side */}
       <div className="md:w-1/2 flex flex-col items-center md:items-start justify-center gap-4 py-10 md:py-[10vw] md:mb-[-30px]">
         <p className="text-xl md:text-xl lg:text-3xl xl:text-5xl text-white font-semibold leading-tight">
