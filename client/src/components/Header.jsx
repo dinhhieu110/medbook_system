@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { assets } from "../assets/assets";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { assets } from '../assets/assets';
+import { NavLink, useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,8 +12,8 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const logout = () => {
@@ -24,12 +24,12 @@ const Header = () => {
     <div
       className={`sticky top-0 flex p-2 items-center justify-between text-sm py-6 mb-5 border-b border-b-gray-400 ${
         isScrolled
-          ? "bg-white/80 backdrop-blur-md shadow-md z-20"
-          : "bg-transparent"
+          ? 'bg-white/80 backdrop-blur-md shadow-md z-20'
+          : 'bg-transparent'
       }`}
     >
       <img
-        onClick={() => navigate("/")}
+        onClick={() => navigate('/')}
         className="w-44 cursor-pointer"
         src={assets.logo}
         alt="logo_image"
@@ -56,13 +56,13 @@ const Header = () => {
         {validToken ? (
           <div className="flex items-center gap-2 cursor-pointer group relative">
             <img
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
               className="w-8 rounded-full"
               src={assets.profile_pic}
               alt="avatar"
             />
             <img
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
               className="w-2.5"
               src={assets.dropdown_icon}
               alt="dropdown_icon"
@@ -71,13 +71,13 @@ const Header = () => {
               <div className="min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4">
                 <p
                   className="hover:text-black cursor-pointer"
-                  onClick={() => navigate("/my-profile")}
+                  onClick={() => navigate('/my-profile')}
                 >
                   My Profile
                 </p>
                 <p
                   className="hover:text-black cursor-pointer"
-                  onClick={() => navigate("/my-appointments")}
+                  onClick={() => navigate('/my-appointments')}
                 >
                   My Appointment
                 </p>
@@ -89,12 +89,68 @@ const Header = () => {
           </div>
         ) : (
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate('/login')}
             className="bg-primary text-white px-2 lg:px-8 py-1 md:py-4 rounded-full font-medium hidden md:block cursor-pointer"
           >
             Create account
           </button>
         )}
+        <img
+          onClick={() => setShowMenu(true)}
+          className="w-6 md:hidden"
+          src={assets.menu_icon}
+          alt="menu_icon"
+        />
+        {/* Mobile menu */}
+        <div
+          className={`${
+            showMenu ? 'fixed w-full' : 'h-0 w-0'
+          } md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all duration-500`}
+        >
+          <div className=" flex items-center justify-between px-5 py-6">
+            <img className="w-36" src={assets.logo} alt="" />
+            <img
+              className="w-7"
+              onClick={() => setShowMenu(false)}
+              src={assets.cross_icon}
+              alt=""
+            />
+          </div>
+          <ul className="flex flex-col items-center gap-2 mt-5 px-5 txt-lg font-medium">
+            <NavLink
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to="/"
+            >
+              <p className="px-4 py-2 rounded inline-block">HOME</p>
+            </NavLink>
+            <NavLink
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to="/doctors"
+            >
+              <p className="px-4 py-2 rounded inline-block">ALL DOCTORS</p>
+            </NavLink>
+            <NavLink
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to="/about"
+            >
+              <p className="px-4 py-2 rounded inline-block">ABOUT</p>
+            </NavLink>
+            <NavLink
+              onClick={() => {
+                setShowMenu(false);
+              }}
+              to="/contact"
+            >
+              <p className="px-4 py-2 rounded inline-block">CONTACT</p>
+            </NavLink>
+          </ul>
+        </div>
       </div>
     </div>
   );

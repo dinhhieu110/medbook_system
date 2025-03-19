@@ -33,3 +33,9 @@
 .border {
   border: 1px solid #acb2bd;
 }
+
+@media (max-width: 740px) {
+  .active p {
+    @apply text-white bg-primary;
+  }
+}
