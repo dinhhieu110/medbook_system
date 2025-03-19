@@ -8,6 +8,7 @@ const Login = () => {
   const onFieldChanged = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
+  console.log(form);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();

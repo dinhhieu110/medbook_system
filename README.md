@@ -13,7 +13,7 @@ This project is built using the **MERN stack**:
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Authentication:** JWT-based authentication
-- **State Management:** Redux
+- **State Management:** ContextAPI
 
 ## 🔧 Features
 
