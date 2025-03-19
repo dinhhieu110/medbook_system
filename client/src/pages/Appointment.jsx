@@ -55,7 +55,6 @@ const Appointment = () => {
           hour: '2-digit',
           minute: '2-digit',
         });
-        console.log('formattedTime:', formattedTime);
 
         // Add slot to array
         timeSlots.push({
