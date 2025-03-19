@@ -45,7 +45,6 @@ const Appointment = () => {
         currentDate.setHours(10);
         currentDate.setMinutes(0);
       }
-      console.log('currentDate: ', currentDate);
       let timeSlots = [];
 
       // Check if today still has available range time --> Create a slot every 30m

@@ -2,30 +2,34 @@
 @import 'tailwindcss';
 /* Custom themes */
 
-*{
-    font-family: Outfit;
+* {
+  font-family: Outfit;
 }
 
-@theme{
-    --breakpoint-*: initial;
-    --breakpoint-sm: 475px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 976px;
-    --breakpoint-xl: 1025px;
-    --color-primary: #5F6FFF;
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 475px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
+  --breakpoint-xl: 1025px;
+  --color-primary: #5f6fff;
 
-    /* Layout */
-    --grid-cols-auto: repeat(auto-fill, minmax(200px, 1fr));
+  /* Layout */
+  --grid-cols-auto: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.active hr{
-    @apply block
+.active hr {
+  @apply block;
 }
 
-::-webkit-scrollbar{
-    @apply hidden
+::-webkit-scrollbar {
+  @apply hidden;
 }
 
 .grid-cols-auto {
-    grid-template-columns: var(--grid-cols-auto);
+  grid-template-columns: var(--grid-cols-auto);
+}
+
+.border {
+  border: 1px solid #acb2bd;
 }
