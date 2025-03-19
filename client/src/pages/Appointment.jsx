@@ -1,34 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
-import { assets } from "../assets/assets";
-import RelatedDoctors from "../components/RelatedDoctors";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+import { assets } from '../assets/assets';
+import RelatedDoctors from '../components/RelatedDoctors';
 
 const Appointment = () => {
   const { doctorId } = useParams();
   const { doctors, currency } = useContext(AppContext);
-  const dayOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const dayOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   const [doctorInfo, setDocInfo] = useState(null);
   const [doctorSlots, setDoctorSlots] = useState([]);
-  console.log("doctorSlots[0]: ", doctorSlots[0]);
   const [slotIndex, setSlotIndex] = useState(1);
-  const [slotTime, setSlotTime] = useState("");
+  const [slotTime, setSlotTime] = useState('');
 
   const fetchDoctorInfo = async () => {
     const doctor = doctors.find((doc) => doc._id === doctorId);
     setDocInfo(doctor);
   };
 
-  let today = new Date();
-  console.log("get date: ", today.getDate());
-  console.log("get day: ", today.getDay());
-
   const getAvailableSlots = async () => {
     setDoctorSlots([]);
 
     let today = new Date();
-    console.log("today: ", today);
 
     for (let i = 0; i < 7; i++) {
       // Get date with index
@@ -40,7 +34,7 @@ const Appointment = () => {
       endTime.setDate(today.getDate() + i);
       endTime.setHours(21, 0, 0, 0); // 9:00 pm
 
-      // Set hours - If current time is 11:00 am, so we just need to show from 12:00 pm
+      // Case today, check whether today still has available range time --> set hours and minutes
       if (today.getDate() === currentDate.getDate()) {
         currentDate.setHours(
           currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
@@ -51,22 +45,24 @@ const Appointment = () => {
         currentDate.setHours(10);
         currentDate.setMinutes(0);
       }
-
+      console.log('currentDate: ', currentDate);
       let timeSlots = [];
 
-      // Create a slot every 30m
+      // Check if today still has available range time --> Create a slot every 30m
       while (currentDate < endTime) {
+        // Return an array of rest available time of the day
         let formattedTime = currentDate.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
+          hour: '2-digit',
+          minute: '2-digit',
         });
+        console.log('formattedTime:', formattedTime);
 
         // Add slot to array
         timeSlots.push({
           dateTime: new Date(currentDate),
           time: formattedTime,
         });
-
+        console.log('timeSlots: ', timeSlots);
         // Increment current type by 30m
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
@@ -83,9 +79,7 @@ const Appointment = () => {
     getAvailableSlots();
   }, [doctorInfo]);
 
-  useEffect(() => {
-    console.log("docSlots:", doctorSlots);
-  }, [doctorSlots]);
+  useEffect(() => {}, [doctorSlots]);
 
   return (
     doctorInfo && (
@@ -106,7 +100,7 @@ const Appointment = () => {
               className="flex items-center gap-2 text-2xl font-medium
              text-gray-900"
             >
-              {doctorInfo.name}{" "}
+              {doctorInfo.name}{' '}
               <img
                 className="w-5"
                 src={assets.verified_icon}
@@ -152,8 +146,8 @@ const Appointment = () => {
                       onClick={() => setSlotIndex(index)}
                       className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
                         slotIndex === index
-                          ? "bg-primary text-white"
-                          : "border border-gray-200"
+                          ? 'bg-primary text-white'
+                          : 'border border-gray-200'
                       }`}
                       key={index}
                     >
@@ -170,8 +164,8 @@ const Appointment = () => {
                   onClick={() => setSlotTime(timeRange.time)}
                   className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
                     timeRange.time === slotTime
-                      ? "bg-primary text-white"
-                      : "text-gray-400 border border-gray-300"
+                      ? 'bg-primary text-white'
+                      : 'text-gray-400 border border-gray-300'
                   }`}
                   key={index}
                 >
