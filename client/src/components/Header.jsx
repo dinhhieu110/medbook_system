@@ -3,31 +3,15 @@ import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [validToken, setValidToken] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const logout = () => {
     setValidToken(false);
   };
 
   return (
-    <div
-      className={`sticky top-0 flex p-2 items-center justify-between text-sm py-6 mb-5 border-b border-b-gray-400 ${
-        isScrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-md z-20'
-          : 'bg-transparent'
-      }`}
-    >
+    <div className="flex p-2 items-center justify-between text-sm py-6 mb-5 border-b border-b-gray-400">
       <img
         onClick={() => navigate('/')}
         className="w-44 cursor-pointer"

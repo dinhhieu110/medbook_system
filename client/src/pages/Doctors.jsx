@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
-import DoctorCard from "../components/DoctorCard";
-import { specialtyData } from "../assets/assets";
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+import DoctorCard from '../components/DoctorCard';
+import { specialtyData } from '../assets/assets';
 
 const Doctors = () => {
   const { specialty } = useParams();
   const [filteredDoctors, setFilteredDoctors] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
   const { doctors } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -27,18 +28,30 @@ const Doctors = () => {
     <div>
       <p className="text-gray-600">Browse through the doctors specialist.</p>
       <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
+        <button
+          className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${
+            showFilter && 'bg-primary text-white'
+          }`}
+          onClick={() => setShowFilter((prev) => !prev)}
+        >
+          Filters
+        </button>
         {/* Categories */}
-        <div className="flex flex-col gap-4 text-sm text-gray-600">
+        <div
+          className={`flex-col gap-4 text-sm text-gray-600 ${
+            showFilter ? 'flex' : 'hidden sm:flex'
+          }`}
+        >
           {specialtyData.map((item) => (
             <p
               key={item.specialty}
               onClick={() => {
                 specialty === item.specialty
-                  ? navigate("/doctors")
+                  ? navigate('/doctors')
                   : navigate(`/doctors/${item.specialty}`);
               }}
               className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${
-                specialty === item.specialty ? "bg-indigo-100 text-black" : ""
+                specialty === item.specialty ? 'bg-indigo-100 text-black' : ''
               }`}
             >
               {item.specialty}
