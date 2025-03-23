@@ -8,6 +8,7 @@ const AdminContextContextProvider = ({ children }) => {
   const [adminToken, setAdminToken] = useState(
     localStorage.getItem("adminToken") ?? ""
   );
+  console.log("Admin context: ", adminToken);
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const value = {
