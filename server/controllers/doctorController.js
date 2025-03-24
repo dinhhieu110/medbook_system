@@ -12,4 +12,17 @@ const changeAvailability = async (req, res) => {
         return res.json({ success: false, message: "Error at doctorController, Change availability" })
     }
 }
-export { changeAvailability }
+
+// Get doctor list
+const getAllDoctors = async (req, res) => {
+    try {
+        // get doctors without password
+        const doctors = await doctorModel.find({}).select(['-password', '-email'])
+        return res.json({ success: true, doctors })
+
+    } catch (error) {
+        console.error(error.message)
+        return res.json({ success: false, message: "Error at doctorController, Get all doctors" })
+    }
+}
+export { changeAvailability, getAllDoctors }

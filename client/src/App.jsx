@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 import {
   About,
   Appointment,
@@ -8,12 +8,14 @@ import {
   Login,
   MyAppointments,
   MyProfile,
-} from "./pages";
-import { Footer, Header } from "./components";
+} from './pages';
+import { Footer, Header } from './components';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className="mx-4 sm:mx-[10%]">
+      <ToastContainer />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
