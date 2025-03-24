@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem('token') ?? '');
   const currency = '$';
   const [doctors, setDoctors] = useState([]);
   const backendURL = import.meta.env.VITE_BACKEND_URL;
@@ -25,6 +26,9 @@ const AppContextProvider = ({ children }) => {
     doctors,
     currency,
     getAllDoctors,
+    backendURL,
+    token,
+    setToken,
   };
 
   useEffect(() => {
