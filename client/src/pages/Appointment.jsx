@@ -60,7 +60,6 @@ const Appointment = () => {
           dateTime: new Date(currentDate),
           time: formattedTime,
         });
-        console.log('timeSlots: ', timeSlots);
         // Increment current type by 30m
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }

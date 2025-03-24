@@ -1,27 +1,26 @@
-import React, { useContext, useState } from "react";
-import { assets } from "../../assets/assets";
-import { useEffect } from "react";
-import { AdminContext } from "../../context/AdminContext";
-import { toast } from "react-toastify";
-import axios from "axios";
+import React, { useContext, useState } from 'react';
+import { assets } from '../../assets/assets';
+import { useEffect } from 'react';
+import { AdminContext } from '../../context/AdminContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const AddDoctor = () => {
   const initialState = {
-    name: "",
-    email: "",
-    password: "",
-    experience: "1 Year",
-    specialty: "General physician",
-    fees: "",
-    degree: "",
-    address1: "",
-    address2: "",
-    about: "",
+    name: '',
+    email: '',
+    password: '',
+    experience: '1 Year',
+    specialty: 'General physician',
+    fees: '',
+    degree: '',
+    address1: '',
+    address2: '',
+    about: '',
     image: null,
   };
   const [form, setForm] = useState(initialState);
   const { adminToken, backendURL } = useContext(AdminContext);
-  console.log("form: ", form);
 
   const handleFieldChanged = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -31,21 +30,20 @@ const AddDoctor = () => {
     e.preventDefault();
     try {
       if (!form.image) {
-        return toast.error("Please upload avatar");
+        return toast.error('Please upload avatar');
       }
       const formData = new FormData();
-      console.log("formData:", formData);
       Object.keys(form).map((key) => {
-        if (key !== "address1" && key !== "address2") {
-          formData.append(key, key === "fees" ? Number(form[key]) : form[key]);
+        if (key !== 'address1' && key !== 'address2') {
+          formData.append(key, key === 'fees' ? Number(form[key]) : form[key]);
         }
       });
       formData.append(
-        "address",
+        'address',
         JSON.stringify({ line1: form.address1, line2: form.address2 })
       );
       const { data } = await axios.post(
-        backendURL + "/admin/add-doctor",
+        backendURL + '/admin/add-doctor',
         formData,
         { headers: { adminToken } }
       );
@@ -78,7 +76,7 @@ const AddDoctor = () => {
             />
           </label>
           <input
-            onChange={(e) => handleFieldChanged("image", e.target.files[0])}
+            onChange={(e) => handleFieldChanged('image', e.target.files[0])}
             type="file"
             id="doctor-img"
             hidden
@@ -94,7 +92,7 @@ const AddDoctor = () => {
               <p>Doctor Name</p>
               <input
                 value={form.name}
-                onChange={(e) => handleFieldChanged("name", e.target.value)}
+                onChange={(e) => handleFieldChanged('name', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="text"
                 placeholder="Name"
@@ -105,7 +103,7 @@ const AddDoctor = () => {
               <p>Doctor Email</p>
               <input
                 value={form.email}
-                onChange={(e) => handleFieldChanged("email", e.target.value)}
+                onChange={(e) => handleFieldChanged('email', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="email"
                 placeholder="Email"
@@ -116,7 +114,7 @@ const AddDoctor = () => {
               <p>Doctor Password</p>
               <input
                 value={form.password}
-                onChange={(e) => handleFieldChanged("password", e.target.value)}
+                onChange={(e) => handleFieldChanged('password', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="password"
                 placeholder="********"
@@ -127,7 +125,7 @@ const AddDoctor = () => {
               <p>Experience</p>
               <select
                 onChange={(e) =>
-                  handleFieldChanged("experience", e.target.value)
+                  handleFieldChanged('experience', e.target.value)
                 }
                 value={form.experience}
                 className="border rounded px-3 py-2"
@@ -148,7 +146,7 @@ const AddDoctor = () => {
               <p>Doctor Fees</p>
               <input
                 value={form.fees}
-                onChange={(e) => handleFieldChanged("fees", e.target.value)}
+                onChange={(e) => handleFieldChanged('fees', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="number"
                 placeholder="Your fees"
@@ -162,7 +160,7 @@ const AddDoctor = () => {
               <p>Specialty</p>
               <select
                 onChange={(e) =>
-                  handleFieldChanged("specialty", e.target.value)
+                  handleFieldChanged('specialty', e.target.value)
                 }
                 value={form.specialty}
                 className="border rounded px-3 py-2"
@@ -179,7 +177,7 @@ const AddDoctor = () => {
               <p>Education</p>
               <input
                 value={form.degree}
-                onChange={(e) => handleFieldChanged("degree", e.target.value)}
+                onChange={(e) => handleFieldChanged('degree', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="text"
                 placeholder="Education"
@@ -190,7 +188,7 @@ const AddDoctor = () => {
               <p>Address</p>
               <input
                 value={form.address1}
-                onChange={(e) => handleFieldChanged("address1", e.target.value)}
+                onChange={(e) => handleFieldChanged('address1', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="text"
                 placeholder="Address 1"
@@ -198,7 +196,7 @@ const AddDoctor = () => {
               />
               <input
                 value={form.address2}
-                onChange={(e) => handleFieldChanged("address2", e.target.value)}
+                onChange={(e) => handleFieldChanged('address2', e.target.value)}
                 className="border rounded px-3 py-2"
                 type="text"
                 placeholder="Address 2"
@@ -211,7 +209,7 @@ const AddDoctor = () => {
           <p className="mt-4 mb-2">About Doctor</p>
           <textarea
             value={form.about}
-            onChange={(e) => handleFieldChanged("about", e.target.value)}
+            onChange={(e) => handleFieldChanged('about', e.target.value)}
             className="border rounded px-4 pt-2 w-full"
             type="text"
             placeholder="Write about doctor"

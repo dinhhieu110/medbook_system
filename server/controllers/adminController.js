@@ -75,4 +75,17 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-export { addDoctor, loginAdmin };
+// Get doctor list
+const getAllDoctors = async (req, res) => {
+    try {
+        // get doctors without password
+        const doctors = await doctorModel.find({}).select('-password')
+        return res.json({ success: true, doctors })
+
+    } catch (error) {
+        console.error(error.message)
+        return res.json({ success: false, message: "Error at adminController, Get all doctors" })
+    }
+}
+
+export { addDoctor, loginAdmin, getAllDoctors };

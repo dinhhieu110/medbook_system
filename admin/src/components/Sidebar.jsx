@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { AdminContext } from "../context/AdminContext";
-import { NavLink } from "react-router-dom";
-import { assets } from "../assets/assets";
+import React, { useContext } from 'react';
+import { AdminContext } from '../context/AdminContext';
+import { NavLink } from 'react-router-dom';
+import { assets } from '../assets/assets';
 const Sidebar = () => {
   const { adminToken } = useContext(AdminContext);
 
@@ -12,10 +12,10 @@ const Sidebar = () => {
           <NavLink
             className={({ isActive }) =>
               `flex items-center gap-3 py-3.5 px-1 md:px-9 md:min-w-72 cursor-pointer ${
-                isActive ? "bg-[#F2F3FF] border-r-4 border-primary" : ""
+                isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''
               }`
             }
-            to={"/dashboard"}
+            to={'/dashboard'}
           >
             <img src={assets.home_icon} alt="home_icon" />
             <p>Dashboard</p>
@@ -23,10 +23,10 @@ const Sidebar = () => {
           <NavLink
             className={({ isActive }) =>
               `flex items-center gap-3 py-3.5 px-1 md:px-9 md:min-w-72 cursor-pointer ${
-                isActive ? "bg-[#F2F3FF] border-r-4 border-primary" : ""
+                isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''
               }`
             }
-            to={"/all-appointments"}
+            to={'/all-appointments'}
           >
             <img src={assets.appointment_icon} alt="appointments_icon" />
             <p>Appointments</p>
@@ -34,10 +34,10 @@ const Sidebar = () => {
           <NavLink
             className={({ isActive }) =>
               `flex items-center gap-3 py-3.5 px-1 md:px-9 md:min-w-72 cursor-pointer ${
-                isActive ? "bg-[#F2F3FF] border-r-4 border-primary" : ""
+                isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''
               }`
             }
-            to={"/add-doctor"}
+            to={'/add-doctor'}
           >
             <img src={assets.add_icon} alt="add_icon" />
             <p>Add Doctor</p>
@@ -45,10 +45,10 @@ const Sidebar = () => {
           <NavLink
             className={({ isActive }) =>
               `flex items-center gap-3 py-3.5 px-1 md:px-9 md:min-w-72 cursor-pointer ${
-                isActive ? "bg-[#F2F3FF] border-r-4 border-primary" : ""
+                isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''
               }`
             }
-            to={"/doctor-list"}
+            to={'/doctor-list'}
           >
             <img src={assets.people_icon} alt="people_icon" />
             <p>Doctor list</p>
