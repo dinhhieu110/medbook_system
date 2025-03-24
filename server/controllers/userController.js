@@ -61,4 +61,21 @@ const login = async (req, res) => {
         return res.json({ success: false, message: error.message })
     }
 }
-export { login, register }
+
+const getUserDetails = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        console.log(userId)
+        const user = await userModel.findById(userId).select('-password');
+        if (!user) {
+            return res.json({ success: false, message: "The user does not exist" })
+        }
+        return res.json({ success: true, user })
+
+    } catch (error) {
+        console.error(error.message)
+        return res.json({ success: false, message: error.message })
+    }
+}
+
+export { login, register, getUserDetails }
