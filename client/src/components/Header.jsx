@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext';
 const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken, userDetails } = useContext(AppContext);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -39,12 +39,12 @@ const Header = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-4">
-        {token ? (
+        {token && userDetails ? (
           <div className="flex items-center gap-2 cursor-pointer group relative">
             <img
               onClick={() => navigate('/')}
-              className="w-8 rounded-full"
-              src={assets.profile_pic}
+              className="w-8 h-8 object-cover rounded-full "
+              src={userDetails.image}
               alt="avatar"
             />
             <img
