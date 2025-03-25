@@ -1,25 +1,31 @@
-import React, { useContext, useState } from 'react';
-import { assets } from '../assets/assets';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import React, { useContext, useState } from "react";
+import { assets } from "../assets/assets";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const { token, setToken, userDetails } = useContext(AppContext);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setToken('');
+    localStorage.removeItem("token");
+    setToken("");
   };
 
   return (
     <div className="flex p-2 items-center justify-between text-sm py-6 mb-5 border-b border-b-gray-400">
-      <img
-        onClick={() => navigate('/')}
+      {/* <img
+        onClick={() => navigate("/")}
         className="w-44 cursor-pointer"
         src={assets.logo}
         alt="logo_image"
-      />
+      /> */}
+      <h1
+        onClick={() => navigate("/")}
+        className="text-3xl text-primary font-bold cursor-pointer hover:text-blue-400"
+      >
+        Wilson's Hospital
+      </h1>
       <ul className="hidden md:flex items-start gap-5 font-medium text-sm xl:text-xl">
         <NavLink to="/">
           <li className="py-1">HOME</li>
@@ -42,13 +48,13 @@ const Header = () => {
         {token && userDetails ? (
           <div className="flex items-center gap-2 cursor-pointer group relative">
             <img
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="w-8 h-8 object-cover rounded-full "
               src={userDetails.image}
               alt="avatar"
             />
             <img
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="w-2.5"
               src={assets.dropdown_icon}
               alt="dropdown_icon"
@@ -57,13 +63,13 @@ const Header = () => {
               <div className="min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4">
                 <p
                   className="hover:text-black cursor-pointer"
-                  onClick={() => navigate('/my-profile')}
+                  onClick={() => navigate("/my-profile")}
                 >
                   My Profile
                 </p>
                 <p
                   className="hover:text-black cursor-pointer"
-                  onClick={() => navigate('/my-appointments')}
+                  onClick={() => navigate("/my-appointments")}
                 >
                   My Appointment
                 </p>
@@ -75,7 +81,7 @@ const Header = () => {
           </div>
         ) : (
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate("/login")}
             className="bg-primary text-white px-2 lg:px-8 py-1 md:py-4 rounded-full font-medium hidden md:block cursor-pointer"
           >
             Create account
@@ -90,7 +96,7 @@ const Header = () => {
         {/* Mobile menu */}
         <div
           className={`${
-            showMenu ? 'fixed w-full' : 'h-0 w-0'
+            showMenu ? "fixed w-full" : "h-0 w-0"
           } md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all duration-500`}
         >
           <div className=" flex items-center justify-between px-5 py-6">
