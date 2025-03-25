@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { assets } from '../assets/assets';
 import RelatedDoctors from '../components/RelatedDoctors';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Appointment = () => {
   const { doctorId } = useParams();
-  const { doctors, currency } = useContext(AppContext);
+  const { doctors, currency, backendURL, token, getAllDoctors } =
+    useContext(AppContext);
   const dayOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
+  const navigate = useNavigate();
   const [doctorInfo, setDocInfo] = useState(null);
   const [doctorSlots, setDoctorSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(1);
@@ -65,6 +68,27 @@ const Appointment = () => {
       }
 
       setDoctorSlots((prev) => [...prev, timeSlots]);
+    }
+  };
+
+  const bookAppointment = async () => {
+    if (!token) {
+      toast.warn('Login to book appointment');
+      return navigate('/login');
+    }
+    try {
+      console.log('doctorSlots:', doctorSlots);
+      const date = doctorSlots[slotIndex][0].datetime;
+
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+
+      const slotDate = day + '_' + month + '_' + year;
+      console.log('slotDate: ', slotDate);
+      const { data } = await axios.post(backendURL + '/user/book-appointment');
+    } catch (error) {
+      toast.error(error);
     }
   };
 
@@ -170,7 +194,10 @@ const Appointment = () => {
                 </p>
               ))}
           </div>
-          <button className="bg-primary text-white text-sm font-light p-3 rounded-full px-14 my-6">
+          <button
+            onClick={bookAppointment}
+            className="bg-primary text-white text-sm font-light p-3 rounded-full px-14 my-6"
+          >
             Book an appointment
           </button>
         </div>
