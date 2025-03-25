@@ -1,29 +1,27 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import { assets } from '../assets/assets';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import { assets } from "../assets/assets";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const MyProfile = () => {
   const { userDetails, setUserDetails, token, backendURL, getUserDetails } =
     useContext(AppContext);
-  console.log('userDetails: ', userDetails);
   const [isEditMode, setIsEditMode] = useState(false);
   const [image, setImage] = useState(undefined);
-  console.log('image: ', image);
   const updateUserProfile = async () => {
     try {
       const formData = new FormData();
 
-      formData.append('name', userDetails.name);
-      formData.append('phone', userDetails.phone);
-      formData.append('address', JSON.stringify(userDetails.address));
-      formData.append('gender', userDetails.gender);
-      formData.append('dob', userDetails.dob);
-      image && formData.append('image', image);
+      formData.append("name", userDetails.name);
+      formData.append("phone", userDetails.phone);
+      formData.append("address", JSON.stringify(userDetails.address));
+      formData.append("gender", userDetails.gender);
+      formData.append("dob", userDetails.dob);
+      image && formData.append("image", image);
 
       const { data } = await axios.patch(
-        backendURL + '/user/update-profile',
+        backendURL + "/user/update-profile",
         formData,
         { headers: { token } }
       );
@@ -54,7 +52,7 @@ const MyProfile = () => {
               />
               <img
                 className="w-10 absolute bottom-12 right-12"
-                src={image ? '' : assets.upload_icon}
+                src={image ? "" : assets.upload_icon}
                 alt=""
               />
             </div>
