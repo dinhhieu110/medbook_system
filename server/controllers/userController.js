@@ -172,4 +172,29 @@ const getAppointmentList = async (req, res) => {
   }
 }
 
-export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList };
+const cancelAppointment = async (req, res) => {
+  try {
+    const { userId, appointmentId } = req.body;
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (appointmentData.userId !== userId) {
+      return res.json({ success: false, message: "Unauthorized action" });
+    }
+    await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
+
+    // When appointment cancelled, slot time in Doctoc slots_booked will be available again
+    const { doctorId, slotDate, slotTime } = appointmentData
+    const doctorData = await doctorModel.findById(doctorId)
+    let slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(item => item !== slotTime);
+    await doctorModel.findByIdAndUpdate(doctorId, { slots_booked })
+    return res.json({ success: true, message: "Appointment Cancelled" });
+
+  } catch (error) {
+    console.error(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+}
+
+export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList, cancelAppointment };
