@@ -35,8 +35,3 @@ This project is built using the **MERN stack**:
 
 **Tran Dinh Hieu (Wilson Tran)** – A passionate and curious software developer.
 
-
-## 📌 System Preview
-![image](https://github.com/user-attachments/assets/d9d07d10-6259-49a3-9a19-43d74f58249f)
-![image](https://github.com/user-attachments/assets/7a1fd26d-3c83-49fa-a422-77c6e1a11c2c)
-
