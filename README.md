@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e15da932-e6c6-4700-a2a8-88eeb2d9cc6f)# 🏥 Medical System
+🏥 Medical System
 
 ## 📌 About the Project
 
