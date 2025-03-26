@@ -202,6 +202,9 @@ const payAppointment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
     const appointmentData = await appointmentModel.findById(appointmentId)
+    if (appointmentData.paymentOnline) {
+      return res.json({ success: false, message: "This appointment paid" });
+    }
     const item = {
       price_data: {
         currency: 'usd',
@@ -231,4 +234,51 @@ const payAppointment = async (req, res) => {
   }
 }
 
-export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList, cancelAppointment, payAppointment };
+const checkoutAllAppointments = async (req, res) => {
+  try {
+    const { allAppointmentIds } = req.body;
+    console.log("appointmentIds: ", allAppointmentIds)
+    const listAppointments = [];
+    if (allAppointmentIds.length > 0) {
+      for (let i = 0; i < allAppointmentIds.length; i++) {
+        const appointmentData = await appointmentModel.findById(allAppointmentIds[i]);
+        console.log("appointmentData:", appointmentData)
+        const item = {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: appointmentData.doctorData.name
+            },
+            unit_amount: appointmentData.amount * 100
+          },
+          quantity: 1
+        }
+        listAppointments.push(item)
+      }
+      console.log("listAppointments:", listAppointments)
+      const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+      const session = await stripe.checkout.sessions.create({
+        // type: credit card
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: listAppointments,
+        success_url: `${process.env.CLIENT_URL}/my-appointments`,
+        cancel_url: `${process.env.CLIENT_URL}/my-appointments`,
+      })
+      for (let i = 0; i < allAppointmentIds.length; i++) {
+        await appointmentModel.findByIdAndUpdate(allAppointmentIds[i], { onlinePayment: true })
+      }
+
+      return res.json({ success: true, url: session.url })
+    } else {
+      return res.json({ success: false, message: "No appointments to checkout" });
+
+    }
+
+  } catch (error) {
+    console.error(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+}
+
+export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList, cancelAppointment, payAppointment, checkoutAllAppointments };

@@ -22,16 +22,6 @@ app.use("/api/admin", adminRouter); // localhost:4000/api/admin
 app.use("/api/doctor", doctorRouter); // localhost:4000/api/doctor
 app.use("/api/user", userRouter); // localhost:4000/api/user
 
-const storeItems = new Map([
-    [
-        1, { priceInCents: 10000, name: "Course 1" }
-    ],
-    [
-        2, { priceInCents: 10000, name: "Course 2" }
-    ]
-])
-
-
 app.get('/', (req, res) => {
     res.send("API works!")
 })

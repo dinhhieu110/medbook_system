@@ -46,7 +46,7 @@ const MyAppointments = () => {
     }
   };
 
-  const payAppointment = async (appointmentId) => {
+  const payEachAppointment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
         backendURL + '/user/pay-appointment',
@@ -59,7 +59,32 @@ const MyAppointments = () => {
 
       if (data.success) {
         window.location = data.url;
-        toast.success('Appointment Paid');
+        getAppointmentsList();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const checkoutAllAppointments = async () => {
+    try {
+      const allAppointmentIds = [];
+      appointments.map(
+        (item) => !item.paymentOnline && allAppointmentIds.push(item._id)
+      );
+      const { data } = await axios.post(
+        backendURL + '/user/checkout-all',
+        {
+          allAppointmentIds,
+        },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        window.location = data.url;
         getAppointmentsList();
       } else {
         toast.error(data.message);
@@ -71,9 +96,17 @@ const MyAppointments = () => {
   };
   return (
     <div>
-      <p className="pb-3 mt-12 font-medium text-zinc-700 border-b border-b-gray-300">
-        My Appointments
-      </p>
+      <div className="mt-12 border-b pb-3 flex justify-between items-center">
+        <p className=" font-medium text-zinc-700  border-b-gray-300">
+          My Appointments
+        </p>
+        <button
+          onClick={checkoutAllAppointments}
+          className="text-sm text-stone-500 text-center sm:min-w-30 px-2 py-2 border hover:bg-primary hover:text-white transition-all duration-600 cursor-pointer "
+        >
+          Checkout
+        </button>
+      </div>
       <div>
         {isListNotEmpty ? (
           appointments.map((item, index) => (
@@ -112,7 +145,7 @@ const MyAppointments = () => {
               ) : !item.cancelled ? (
                 <div className="flex flex-col gap-2 justify-end">
                   <button
-                    onClick={() => payAppointment(item._id)}
+                    onClick={() => payEachAppointment(item._id)}
                     className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-primary hover:text-white transition-all duration-300  cursor-pointer"
                   >
                     Pay online
