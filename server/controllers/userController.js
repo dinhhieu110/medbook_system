@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import { now } from "mongoose";
 import appointmentModel from "../models/appointmentModel.js";
+import Stripe from "stripe"
 
 const register = async (req, res) => {
   try {
@@ -197,4 +198,37 @@ const cancelAppointment = async (req, res) => {
   }
 }
 
-export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList, cancelAppointment };
+const payAppointment = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+    const appointmentData = await appointmentModel.findById(appointmentId)
+    const item = {
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: appointmentData.doctorData.name
+        },
+        unit_amount: appointmentData.amount * 100
+      },
+      quantity: 1
+    }
+    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+    const session = await stripe.checkout.sessions.create({
+      // type: credit card
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: [item],
+      success_url: `${process.env.CLIENT_URL}/my-appointments`,
+      cancel_url: `${process.env.CLIENT_URL}/my-appointments`,
+    })
+
+    await appointmentModel.findByIdAndUpdate(appointmentId, { onlinePayment: true })
+
+    return res.json({ success: true, url: session.url })
+  } catch (error) {
+    console.error(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+}
+
+export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList, cancelAppointment, payAppointment };

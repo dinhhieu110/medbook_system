@@ -33,11 +33,34 @@ const MyAppointments = () => {
         },
         { headers: { token } }
       );
-      console.log('data', data);
       if (data.success) {
         toast.success(data.message);
         getAppointmentsList();
         getAllDoctors();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const payAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendURL + '/user/pay-appointment',
+        {
+          appointmentId,
+        },
+        { headers: { token } }
+      );
+      console.log(data);
+
+      if (data.success) {
+        window.location = data.url;
+        toast.success('Appointment Paid');
+        getAppointmentsList();
       } else {
         toast.error(data.message);
       }
@@ -82,9 +105,16 @@ const MyAppointments = () => {
               </div>
               {/* For grid layout */}
               <div></div>
-              {!item.cancelled ? (
+              {item.onlinePayment ? (
+                <button disabled className="text-2xl text-gray-500">
+                  Paid
+                </button>
+              ) : !item.cancelled ? (
                 <div className="flex flex-col gap-2 justify-end">
-                  <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-primary hover:text-white transition-all duration-300  cursor-pointer">
+                  <button
+                    onClick={() => payAppointment(item._id)}
+                    className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-primary hover:text-white transition-all duration-300  cursor-pointer"
+                  >
                     Pay online
                   </button>
 
@@ -96,7 +126,7 @@ const MyAppointments = () => {
                   </button>
                 </div>
               ) : (
-                <button disabled className="text-sm text-gray-500">
+                <button disabled className="text-2xl text-gray-500">
                   Cancelled
                 </button>
               )}
