@@ -10,6 +10,7 @@ const AppContextProvider = ({ children }) => {
   const [doctors, setDoctors] = useState([]);
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [userDetails, setUserDetails] = useState({});
+  const [appointments, setAppointments] = useState([]);
 
   const getAllDoctors = async () => {
     try {
@@ -42,6 +43,22 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+  const getAppointmentsList = async () => {
+    try {
+      const { data } = await axios.get(backendURL + '/user/appointments', {
+        headers: { token },
+      });
+      if (data.success) {
+        setAppointments(data.appointments.reverse());
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   // Below value, we can access from any components
   const value = {
     doctors,
@@ -53,10 +70,14 @@ const AppContextProvider = ({ children }) => {
     getUserDetails,
     userDetails,
     setUserDetails,
+    appointments,
+    setAppointments,
+    getAppointmentsList,
   };
 
   useEffect(() => {
     getAllDoctors();
+    getAppointmentsList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

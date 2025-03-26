@@ -161,4 +161,15 @@ const bookAppointment = async (req, res) => {
   }
 };
 
-export { login, register, getUserDetails, updateUserDetails, bookAppointment };
+const getAppointmentList = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const appointments = await appointmentModel.find({ userId })
+    return res.json({ success: true, appointments });
+  } catch (error) {
+    console.error(error.message);
+    return res.json({ success: false, message: error.message });
+  }
+}
+
+export { login, register, getUserDetails, updateUserDetails, bookAppointment, getAppointmentList };
