@@ -24,7 +24,7 @@ This project is built using the **MERN stack**:
 ✅ Admin panel for managing users and doctors  
 ✅ Secure and scalable backend with role-based access
 
-## 📦 Installation & Setup
+## 📦 Installation
 
 1. **Clone**
 2. **Install dependencies**
